@@ -7,7 +7,7 @@ Esta es una plantilla para entrega de practicas para que tengan el mismo formato
 ### Intellij-IDEA
 1. Entrar en la ventana de nuevo proyecto y seguir el siguiente paso: ![new_project_1](./resources/new_project_1.png)
 2. Asegurarse que el **NOMBRE** del proyecto lleva el mismo nombre de la carpeta en cuestión y que la locación del directorio padre sea la apropiada.![new_project_2](./resources/new_project_2.png)
-3. Para asegurarse que está funcionando y se creó de la forma correcta, la siguiente imagen debe de ser el resultado para un proyecto "gradle" de "spring-boot" en la nueva carpeta que corresponde a la práctica en cuestión, en este caso de prueba, "practica-0".![new_project_3](./resources/new_project_3.png)
+3. Para asegurarse que está funcionando y se creó de la forma correcta, la siguiente imagen debe de ser el resultado para un proyecto "gradle" de "spring-boot" en la nueva carpeta que corresponde a la práctica en cuestión, en este caso de prueba, "practica-0".<br>![new_project_3](./resources/new_project_3.png)
 
 ## ¿Cómo actualizar / agregar un curso realizado?
 1. Entrar al directorio "curso-n" donde la "n" sería el curso en cuestión, para este caso, si se entra en la carpeta "curso-0", se podrá visualizar la siguiente imagen:![course_0](./resources/course_0.png)
