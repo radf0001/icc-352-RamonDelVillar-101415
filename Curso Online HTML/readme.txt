@@ -1,1 +1,1 @@
-Contenido de curso-2
+Contenido de curso de HTML

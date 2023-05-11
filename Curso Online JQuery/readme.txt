@@ -1,1 +1,1 @@
-Contenido de curso-5
+Contenido de curso de JQuery

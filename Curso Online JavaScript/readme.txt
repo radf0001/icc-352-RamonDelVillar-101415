@@ -1,1 +1,1 @@
-Contenido de curso-4
+Contenido de curso de JavaScript
