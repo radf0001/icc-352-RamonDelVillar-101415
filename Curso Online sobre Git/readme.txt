@@ -1,1 +1,1 @@
-Contenido de curso sobre Git
+Contenido de curso online sobre Git

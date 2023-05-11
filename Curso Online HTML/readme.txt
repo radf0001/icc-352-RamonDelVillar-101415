@@ -1,1 +1,1 @@
-Contenido de curso de HTML
+Contenido de curso online de HTML

@@ -1,1 +1,1 @@
-Contenido de curso de JQuery
+Contenido de curso online de JQuery

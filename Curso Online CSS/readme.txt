@@ -1,1 +1,1 @@
-Contenido de curso de CSS
+Contenido de curso online de CSS
