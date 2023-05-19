@@ -27,20 +27,10 @@ public class practice1 {
       int status = response.statusCode();                            
       String contenType = response.headers().allValues("content-type").toString();
       String body = response.body();
-      System.out.println("Content Type: " + contenType);
+      System.out.println("\nContent Type: " + contenType);
       if(contenType.contains("html")){
          Document doc = Jsoup.parse(body);
-         infoHTML(doc);
-         Elements formsPost = doc.select("form[method*=post]");
-         System.out.println("Cantidad de Formularios metodo POST: "+formsPost.size());
-         for(Element forms:formsPost) {
-            post(cliente, url);
-            Elements inputs = forms.getElementsByTag("input");
-            System.out.println(" Cantidad de Input en ese formulario: "+forms.getElementsByTag("input").size()); 
-            for(Element input:inputs){
-               System.out.println("    <input type=\""+input.attr("type")+"\" />");
-            }
-         }
+         infoHTML(doc, cliente, url);
       }
    }
 }
@@ -80,7 +70,7 @@ public class practice1 {
          .build();                             
          HttpResponse<String> response = cliente.send(request,
          HttpResponse.BodyHandlers.ofString());
-         // System.out.println(response.statusCode()); 
+         System.out.println("       Status de peticion al servidor:" + response.statusCode() + "\n"); 
          return response;
       } catch (IOException | InterruptedException e) {
          System.out.println("Ocurrio un error de tipo" + e.getClass().getName());
@@ -88,18 +78,31 @@ public class practice1 {
       return null;
    }
 
-   public static void infoHTML(Document doc) {
+   public static void infoHTML(Document doc, HttpClient cliente, String url) {
       Elements parraf = doc.select("p");
       Elements imgs = doc.select("img");
       Elements formsGet = doc.select("form[method*=get]");
-      System.out.println("Cantidad de Parrafos: "+parraf.size());
-      System.out.println("Cantidad de Imagenes: "+imgs.size());
-      System.out.println("Cantidad de Formularios metodo GET: "+formsGet.size());
-      for(Element forms:formsGet) {
-         Elements inputs = forms.getElementsByTag("input");
-         System.out.println(" Cantidad de Input en ese formulario: "+forms.getElementsByTag("input").size());
+      Elements formsPost = doc.select("form[method*=post]");
+      Elements forms = doc.select("form");
+      System.out.println("\nCantidad de Lineas: "+doc.html().lines().count());
+      System.out.println("\nCantidad de Parrafos: "+parraf.size());
+      System.out.println("\nCantidad de Imagenes: "+imgs.size());
+
+      System.out.println("\nCantidad de Formularios: "+forms.size());
+      System.out.println(" Cantidad de Formularios metodo GET: "+formsGet.size());
+      System.out.println(" Cantidad de Formularios metodo POST: "+formsPost.size() + "\n");
+      for(Element form:forms) {
+         Elements inputs = form.getElementsByTag("input");
+         System.out.println("    Cantidad de Input en este formulario: "+form.getElementsByTag("input").size());
+         System.out.println("       <form" + form.attributes() + ">");
          for(Element input:inputs){
-            System.out.println("    <input type=\""+input.attr("type")+"\" />");
+            System.out.println("          "+input);
+         }
+         if(form.attr("method").equalsIgnoreCase("post")){
+            System.out.println("       </form>");
+            post(cliente, url);
+         } else{
+            System.out.println("       </form>\n");
          }
        }
    }
