@@ -1,7 +1,10 @@
 package practica;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -17,20 +20,22 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class practice1 {
-   public static void main(String[] args) {
-    Scanner entrada = new Scanner(System.in);
-    System.out.print("Ingrese el URL: ");  
-    String url = entrada.nextLine();
-    HttpClient cliente = clienteHTTP();
-    HttpResponse<String> response = get(cliente, url);
-    if(response != null){
-      int status = response.statusCode();                            
-      String contenType = response.headers().allValues("content-type").toString();
-      String body = response.body();
-      System.out.println("\nContent Type: " + contenType);
-      if(contenType.contains("html")){
-         Document doc = Jsoup.parse(body);
-         infoHTML(doc, cliente, url);
+   public static void main(String[] args) throws MalformedURLException, URISyntaxException{
+    try (Scanner entrada = new Scanner(System.in)) {
+      System.out.print("Ingrese el URL: ");  
+       String url = entrada.nextLine();
+       HttpClient cliente = clienteHTTP();
+       HttpResponse<String> response = get(cliente, url);
+       if(response != null){
+         int status = response.statusCode();                            
+         String contenType = response.headers().allValues("content-type").toString();
+         String body = response.body();
+         System.out.println("\nStatus Code: " + status);
+         System.out.println("\nContent Type: " + contenType);
+         if(contenType.contains("html")){
+            Document doc = Jsoup.parse(body);
+            infoHTML(doc, cliente, url);
+         }
       }
    }
 }
@@ -59,7 +64,17 @@ public class practice1 {
       return null;
    }
 
-   public static HttpResponse<String> post(HttpClient cliente, String url) {
+   public static HttpResponse<String> post(HttpClient cliente, String url, String action) throws MalformedURLException, URISyntaxException {
+      try {
+         URL urlPH = new URL(url);
+         String urlDef = urlPH.getProtocol() +"://"+ urlPH.getHost()+"/"+action;
+         if(isValidURL(action))
+            url = action;
+         else if(isValidURL(urlDef))
+            url = urlDef;
+      } catch (MalformedURLException e) {
+         e.printStackTrace();
+      }
       Map<String, String> formData = new HashMap<>();
       formData.put("asignatura", "practica1");
       try {
@@ -78,7 +93,7 @@ public class practice1 {
       return null;
    }
 
-   public static void infoHTML(Document doc, HttpClient cliente, String url) {
+   public static void infoHTML(Document doc, HttpClient cliente, String url) throws MalformedURLException, URISyntaxException {
       Elements parraf = doc.select("p");
       Elements imgs = doc.select("img");
       Elements formsGet = doc.select("form[method*=get]");
@@ -100,7 +115,7 @@ public class practice1 {
          }
          if(form.attr("method").equalsIgnoreCase("post")){
             System.out.println("       </form>");
-            post(cliente, url);
+            post(cliente, url, form.attr("action"));
          } else{
             System.out.println("       </form>\n");
          }
@@ -119,4 +134,17 @@ public class practice1 {
       }
       return formBodyBuilder.toString();
   }
+
+  static boolean isValidURL(String url) throws MalformedURLException, URISyntaxException {
+      try {
+         new URL(url).toURI();
+         return true;
+      } catch (MalformedURLException e) {
+         return false;
+      } catch (URISyntaxException e) {
+         return false;
+      }
+   }
 }
+
+
