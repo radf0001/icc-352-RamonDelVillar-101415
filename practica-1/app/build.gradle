@@ -27,10 +27,14 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'practica.App'
+    mainClass = 'practica.practice1'
 }
 
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+run {
+    standardInput = System.in
 }

@@ -22,11 +22,14 @@ import org.jsoup.select.Elements;
 public class practice1 {
    public static void main(String[] args) throws MalformedURLException, URISyntaxException{
     try (Scanner entrada = new Scanner(System.in)) {
-      System.out.print("Ingrese el URL: ");  
-       String url = entrada.nextLine();
-       HttpClient cliente = clienteHTTP();
-       HttpResponse<String> response = get(cliente, url);
-       if(response != null){
+      System.out.print("Ingrese el URL: ");
+      String url = "";
+      if(entrada.hasNextLine()){
+         url=entrada.nextLine();
+      }
+      HttpClient cliente = clienteHTTP();
+      HttpResponse<String> response = get(cliente, url);
+      if(response != null){
          int status = response.statusCode();                            
          String contenType = response.headers().allValues("content-type").toString();
          String body = response.body();
