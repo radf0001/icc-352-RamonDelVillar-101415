@@ -1,0 +1,4 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<h1>$msg.get("WELCOME_MESSAGE", $currentUser)</h1>
+#end
