@@ -1,0 +1,15 @@
+#* @implicitly included *#
+#* @vtlvariable name="WebPath" type="pruebas.util.Path.Web" *#
+#* @vtlvariable name="article" type="pruebas.articulo.Articulo" *#
+#* @vtlvariable name="articles" type="java.lang.Iterable<pruebas.articulo.Articulo>" *#
+#* @vtlvariable name="user" type="pruebas.usuario.Usuario" *#
+#* @vtlvariable name="users" type="java.lang.Iterable<pruebas.usuario.Usuario>" *#
+#* @vtlvariable name="currentUser" type="java.lang.String" *#
+#* @vtlvariable name="loggedOut" type="java.lang.String" *#
+#* @vtlvariable name="authenticationFailed" type="java.lang.String" *#
+#* @vtlvariable name="authenticationSucceeded" type="java.lang.String" *#
+#* @vtlvariable name="loginRedirect" type="java.lang.String" *#
+#* @vtlvariable name="etiquetas" type="java.lang.Iterable<pruebas.etiqueta.Etiqueta>" *#
+#* @vtlvariable name="etiqueta" type="pruebas.etiqueta.Etiqueta" *#
+#* @vtlvariable name="comments" type="java.lang.Iterable<pruebas.articulo.Comentario>" *#
+#* @vtlvariable name="comment" type="pruebas.articulo.Comentario" *#

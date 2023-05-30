@@ -1,0 +1,70 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<div>
+    <div class="container mx-auto">
+        #if($article)
+            <div class="pt-16 lg:pt-20">
+                <div class="border-b border-grey-lighter pb-8 sm:pb-12">
+                    <span
+                            class="mb-5 inline-block rounded-full bg-green-light px-2 py-1 font-body text-sm text-green sm:mb-8">$article.getStringEtiquetas()</span>
+                    <h2
+                            class="block font-body text-3xl font-semibold leading-tight text-primary dark:text-white sm:text-4xl md:text-5xl">
+                        $article.getTitulo()
+                    </h2>
+                    <div class="flex items-center pt-5 sm:pt-8">
+                        <p class="pr-2 font-body font-light text-primary dark:text-white">
+                            $article.getFechaParse()
+                        </p>
+                        <span class="vdark:text-white font-body text-grey">//</span>
+                        <p class="pl-2 font-body font-light text-primary dark:text-white">
+                            $article.getAutor().getNombre()
+                        </p>
+                    </div>
+                </div>
+                <div class="prose prose max-w-none border-b border-grey-lighter py-8 dark:prose-dark sm:py-12">
+                    <p>$article.getCuerpo()</p>
+
+                </div>
+                #if($currentUser)
+                    <div class="flex items-center py-10">
+                        <section>
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-lg font-bold text-gray-700 dark:text-white">Discussion</h2>
+                            </div>
+                            <form method="POST" class="mb-6">
+                                <label class="block text-sm font-bold text-gray-700 dark:text-white" for="comment">
+                                    Your comment
+                                </label>
+                                <textarea
+                                        name="comment"
+                                        class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                        rows="1"
+                                        placeholder="Write a comment..."
+                                        required="required"></textarea>
+                                <div class="flex items-center justify-start mt-4 gap-x-2">
+                                    <button
+                                            type="submit"
+                                            class="px-6 py-2 text-sm font-semibold rounded-md shadow-md text-sky-100 bg-sky-500 hover:bg-sky-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300">
+                                        Save
+                                    </button>
+                                </div>
+                            </form>
+                            #foreach($comment in $comments)
+                                <div class="flex items-center pt-5 sm:pt-8">
+                                    <p class="pr-2 font-body font-light text-primary dark:text-white">
+                                        $comment.getAutor().getNombre()
+                                    </p>
+                                </div>
+                                <p class="font-body font-light text-primary dark:text-white">$comment.getComentario()</p>
+                            #end
+                        </section>
+                    </div>
+                #end
+            </div>
+        #else
+            <h1 class="hidden font-body text-2xl font-bold text-primary dark:text-white lg:block">Articulo no
+                encontrado</h1>
+        #end
+    </div>
+</div>
+#end

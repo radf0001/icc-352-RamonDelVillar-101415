@@ -1,0 +1,113 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<div>
+    <div
+        class="flex flex-col items-center min-h-screen pt-6 bg-white sm:justify-center sm:pt-0 dark:bg-primary">
+        <div class="w-full px-16 py-20 overflow-hidden bg-white rounded-lg lg:max-w-4xl dark:bg-primary">
+            <div class="mb-4">
+                <h1 class="font-body text-4xl font-semibold text-primary dark:text-white md:text-5xl lg:text-6xl">
+                    Create User
+                </h1>
+            </div>
+
+            <div class="w-full px-6 py-4 bg-white dark:bg-primary">
+                <form method="POST" action="#">
+                    <!-- Title -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 dark:text-white" for="nombre">
+                            Nombre
+                        </label>
+                        #if($user)
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="nombre"
+                                    value="$user.getNombre()"
+                                    placeholder="Nombre ..."/>
+                        #else
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="nombre"
+                                    value=""
+                                    placeholder="Nombre ..."/>
+                        #end
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-white" for="username">
+                            Username
+                        </label>
+                        #if($user)
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="usuario"
+                                    value="$user.getUsername()"
+                                    placeholder="Username ..."/>
+                        #else
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="usuario"
+                                    value=""
+                                    placeholder="Username ..."/>
+                        #end
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-white" for="password">
+                            Password
+                        </label>
+                        #if($user)
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="clave"
+                                    value="$user.getPassword()"
+                                    placeholder="Password"/>
+                        #else
+                            <input
+                                    class="block w-full mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                                    type="text"
+                                    name="clave"
+                                    value=""
+                                    placeholder="Password"/>
+                        #end
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="block text-sm font-bold text-gray-700 dark:text-white" for="password">
+                            Permisos
+                        </label>
+                        #if($user.isAdministrador())
+                            <input checked class="border border-primary bg-grey-lightest font-body font-light placeholder-primary transition-colors focus:border-secondary focus:ring-2 focus:ring-secondary dark:border-secondary" type="checkbox" id="admin" name="admin" value="true">
+                        #else
+                            <input class="border border-primary bg-grey-lightest font-body font-light placeholder-primary transition-colors focus:border-secondary focus:ring-2 focus:ring-secondary dark:border-secondary" type="checkbox" id="admin" name="admin" value="true">
+                        #end
+                        <label for="admin" class= "text-gray-700 dark:text-white">
+                            Administrador</label><br>
+                        #if($user.isAutor())
+                            <input checked class="border border-primary bg-grey-lightest font-body font-light placeholder-primary transition-colors focus:border-secondary focus:ring-2 focus:ring-secondary dark:border-secondary" type="checkbox" id="autor" name="autor" value="true">
+                        #else
+                            <input class="border border-primary bg-grey-lightest font-body font-light placeholder-primary transition-colors focus:border-secondary focus:ring-2 focus:ring-secondary dark:border-secondary" type="checkbox" id="autor" name="autor" value="true">
+                        #end
+                        <label for="autor"  class= "text-gray-700 dark:text-white">
+                            Autor</label><br>
+                    </div>
+
+                    <div class="flex items-center justify-start mt-4 gap-x-2">
+                        <button
+                            type="submit"
+                            class="px-6 py-2 text-sm font-semibold rounded-md shadow-md text-sky-100 bg-sky-500 hover:bg-sky-700 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300">
+                            Save
+                        </button>
+                        <a href="/admin/usuariosCrud" class="px-6 py-2 text-sm font-semibold text-gray-100 bg-gray-400 rounded-md shadow-md hover:bg-gray-600 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+#end

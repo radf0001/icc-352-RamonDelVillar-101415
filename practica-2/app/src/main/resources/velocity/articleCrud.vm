@@ -1,0 +1,131 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<div class="container">
+    <div class="flex justify-end">
+        <a href="/autor/crearArticulo" class="button block bg-secondary px-9 py-2 text-center font-body text-xl font-semibold text-white transition-colors hover:bg-green sm:inline-block sm:text-left sm:text-2xl">Crear</a>
+    </div>
+    <table class="w-full border-separate table-fixed pb-10">
+        <thead>
+            <tr class="bg-grey-lightest dark:bg-very-dark-blue">
+                <th class="w-1/6 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">ID</th>
+                <th class="w-1/6 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">Titulo</th>
+                <th class="w-1/6 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">Descripcion</th>
+                <th class="w-1/6 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">Autor</th>
+                <th class="w-1/6 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">Creado el</th>
+                <th class="w-1/18 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewbox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                    </svg>
+                </th>
+                <th class="w-1/18 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6"
+                        fill="none"
+                        viewbox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                    </svg>
+                </th>
+                <th class="w-1/18 border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="w-6 h-6 text-red-600 hover:text-red-800"
+                        fill="none"
+                        viewbox="0 0 24 24"
+                        stroke="currentColor">
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                    </svg>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            #foreach($article in $articles)
+                <tr>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white truncate">$article.getId()</td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white truncate">$article.getTitulo()</td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white truncate">$article.getCuerpo()</td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white truncate">$article.getAutor().getNombre()</td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white truncate">$article.getFechaParse()</td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                        <a href="/autor/editarArticulo/$article.getId()" class="text-indigo-600 hover:text-indigo-900">
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-6 h-6"
+                                    fill="none"
+                                    viewbox="0 0 24 24"
+                                    stroke="currentColor">
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                        </a>
+                    </td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                        <a href="/articulo/$article.getId()" class="text-indigo-600 hover:text-indigo-900">
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-6 h-6"
+                                    fill="none"
+                                    viewbox="0 0 24 24"
+                                    stroke="currentColor">
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </a>
+                    </td>
+                    <td class="border border-primary dark:border-white px-4 py-2 text-primary dark:text-white">
+                        <a href="/autor/eliminarArticulo/$article.getId()" class="text-indigo-600 hover:text-indigo-900">
+                            <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-6 h-6 text-red-600 hover:text-red-800"
+                                    fill="none"
+                                    viewbox="0 0 24 24"
+                                    stroke="currentColor">
+                                <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            #end
+        </tbody>
+    </table>
+</div>
+#end

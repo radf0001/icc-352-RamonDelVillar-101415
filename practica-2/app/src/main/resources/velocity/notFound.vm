@@ -1,0 +1,6 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+    <div class="flex items-center container mx-auto">
+        <h1 class="hidden font-body text-2xl font-bold text-primary dark:text-white lg:block">We can't find the page you're looking for <small>(error 404)</small></h1>
+    </div>
+#end

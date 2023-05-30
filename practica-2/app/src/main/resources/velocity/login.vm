@@ -1,0 +1,69 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<main>
+    <div>
+        <div class="container mx-auto">
+            <div class="py-16 lg:py-20">
+                <div>
+                    <img src="/img/icon-contact.png" alt="icon envelope"/>
+                </div>
+                <h1
+                    class="pt-5 font-body text-4xl font-semibold text-primary dark:text-white md:text-5xl lg:text-6xl">
+                    Log In
+                </h1>
+                <div class="pr-2 pt-3 sm:pt-5">
+                    <p class="font-body text-xl font-light text-primary dark:text-white">
+                        Welcome Back, It's nice to see you again!<br>Log in to continue to your account.
+                    </p>
+                </div>
+                <form class="pt-16" method="POST">
+                    #if($authenticationFailed)
+                        <p class="bad notification">Informacion incorrecta</p>
+                    #elseif($authenticationSucceeded)
+                        <p class="good notification">Ha iniciado sesion como $currentUser</p>
+                    #elseif($loggedOut)
+                        <p class="notification">Ha cerrado sesion</p>
+                    #end
+                    <div>
+                      <div class="flex justify-center">
+                        <label class="block pb-3 font-body font-medium text-primary dark:text-white">Username</label>
+                      </div>
+                      <div class="flex justify-center">
+                        <input
+                            type="text"
+                            id="usuario"
+                            name="usuario"
+                            class="sm:w-1/2 border border-primary bg-grey-lightest px-5 py-4 font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                            placeholder="What should I call you?"
+                            required="">
+                        </div>
+                    </div>
+                    <div>
+                      <div class="flex justify-center">
+                        <label class="sm:w-full pt-6 block pb-3 font-body font-medium text-primary dark:text-white">Password</label>
+                      </div>
+                      <div class="flex justify-center">
+                        <input
+                            type="password"
+                            name="clave"
+                            id="clave"
+                            placeholder="••••••••"
+                            class="sm:w-1/2 border border-primary bg-grey-lightest px-5 py-4 font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary "
+                            required="">
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        #if($loginRedirect)
+                            <input type="hidden" name="loginRedirect" value="$loginRedirect">
+                        #end
+                    <button type="submit"
+                        class="mt-10 mb-12 block bg-secondary px-10 py-4 text-center font-body text-xl font-semibold text-white transition-colors hover:bg-green sm:inline-block sm:text-left sm:text-2xl">
+                        Log In
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+#end
