@@ -42,14 +42,19 @@ public class UserController {
     };
 
     public static Handler handleUsuarioPost = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+        model.put("users", usuarioDao.getAllUsuarios());
         String nombre = RequestUtil.getQueryNombre(ctx);
         String username = RequestUtil.getQueryUsuario(ctx);
         String password = RequestUtil.getQueryClave(ctx);
         boolean autor = RequestUtil.getQueryAutor(ctx);
         boolean admin = RequestUtil.getQueryAdmin(ctx);
-        Usuario tmp = new Usuario(username, nombre, password, admin, autor);
-        usuarioDao.crearUsuario(tmp);
-        ctx.redirect("/admin"+Path.Web.USERS);
+        if(usuarioDao.crearUsuario(username, nombre, password, admin, autor)){
+            model.put("usuarioSucceeded", true);
+        }else{
+            model.put("usuarioFailed", true);
+        }
+        ctx.render(Path.Template.USERS, model);
     };
 
     public static Handler fetchEditarOneUsuarioCrud = ctx -> {
@@ -64,14 +69,21 @@ public class UserController {
     };
 
     public static Handler handleEditarUsuarioPost = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+        model.put("users", usuarioDao.getAllUsuarios());
         Usuario user = usuarioDao.getUsuarioById(getParamId(ctx));
         String name = RequestUtil.getQueryNombre(ctx);
         String username = RequestUtil.getQueryUsuario(ctx);
         String pwd = RequestUtil.getQueryClave(ctx);
         boolean autor = RequestUtil.getQueryAutor(ctx);
         boolean admin = RequestUtil.getQueryAdmin(ctx);
-        user.editarUsuario(username, name, pwd, autor, admin);
-        ctx.redirect("/admin"+Path.Web.USERS);
+        if(user.getUsername().equalsIgnoreCase(username) || usuarioDao.getUsuarioByUsername(username) == null){
+            user.editarUsuario(username, name, pwd, autor, admin);
+            model.put("usuarioSucceeded", true);
+        }else{
+            model.put("usuarioFailed", true);
+        }
+        ctx.render(Path.Template.USERS, model);
     };
 
     public static Handler handleEliminar = ctx -> {

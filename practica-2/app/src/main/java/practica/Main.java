@@ -28,7 +28,7 @@ public class Main {
 
         JavalinRenderer.register(new JavalinVelocity(), ".vm");
         usuarioDao = new UsuarioDao();
-        usuarioDao.crearUsuario(new Usuario("admin", "admin", "admin", true, true));
+        usuarioDao.crearUsuario("admin", "admin", "admin", true, true);
         articuloDao = new ArticuloDao();
         etiquetaDao = new EtiquetaDao();
 

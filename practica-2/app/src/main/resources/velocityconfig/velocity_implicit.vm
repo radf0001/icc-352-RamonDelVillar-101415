@@ -13,3 +13,7 @@
 #* @vtlvariable name="etiqueta" type="pruebas.etiqueta.Etiqueta" *#
 #* @vtlvariable name="comments" type="java.lang.Iterable<pruebas.articulo.Comentario>" *#
 #* @vtlvariable name="comment" type="pruebas.articulo.Comentario" *#
+#* @vtlvariable name="usuarioFailed" type="java.lang.String" *#
+#* @vtlvariable name="usuarioSucceeded" type="java.lang.String" *#
+#* @vtlvariable name="articleFailed" type="java.lang.String" *#
+#* @vtlvariable name="articleSucceeded" type="java.lang.String" *#

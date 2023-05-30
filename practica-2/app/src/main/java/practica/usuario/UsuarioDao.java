@@ -12,19 +12,20 @@ public class UsuarioDao {
     }
 
     public Usuario getUsuarioByUsername(String username) {
-        return listaUsuarios.stream().filter(b -> b.getUsername().equals(username)).findFirst().orElse(null);
+        return listaUsuarios.stream().filter(b -> b.getUsername().equalsIgnoreCase(username)).findFirst().orElse(null);
     }
 
     public Usuario getUsuarioById(String id) {
         return listaUsuarios.stream().filter(b -> Long.toString(b.getId()).equals(id)).findFirst().orElse(null);
     }
 
-    public Usuario crearUsuario(Usuario usuario){
-        if(getUsuarioByUsername(usuario.getUsername())!=null){
-            return null; //generar una excepcion...
+    public boolean crearUsuario(String username, String nombre, String password, boolean admin, boolean autor){
+        if(getUsuarioByUsername(username)!=null){
+            return false; //generar una excepcion...
         }
-        listaUsuarios.add(usuario);
-        return usuario;
+        Usuario tmp = new Usuario(username, nombre, password, admin, autor);
+        listaUsuarios.add(tmp);
+        return true;
     }
 
     public boolean eliminandoUsuario(Usuario user){

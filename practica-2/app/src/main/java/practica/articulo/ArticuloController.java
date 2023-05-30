@@ -40,13 +40,20 @@ public class ArticuloController {
     };
 
     public static Handler handleEditarArticlePost = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+        model.put("articles", articuloDao.getAllArticulos());
         Articulo article = articuloDao.getArticuloById(getParamId(ctx));
         String titulo = RequestUtil.getQueryTitulo(ctx);
         String descripcion = RequestUtil.getQueryDescripcion(ctx);
         Usuario user = usuarioDao.getUsuarioByUsername(RequestUtil.getSessionCurrentUser(ctx));
         List<Etiqueta> tags = etiquetaDao.crearListaEtiquetas(RequestUtil.getQueryEtiquetas(ctx));
-        article.editarArticulo(titulo, descripcion, user, tags);
-        ctx.redirect("/autor"+Path.Web.ARTICLES);
+        if(article.getCuerpo().equalsIgnoreCase(descripcion) || articuloDao.getArticuloByCuerpo(descripcion) == null){
+            article.editarArticulo(titulo, descripcion, user, tags);
+            model.put("articleSucceeded", true);
+        }else{
+            model.put("articleFailed", true);
+        }
+        ctx.render(Path.Template.ARTICLES, model);
     };
 
     public static Handler serveCrearPage = ctx -> {
@@ -56,13 +63,18 @@ public class ArticuloController {
     };
 
     public static Handler handleArticlePost = ctx -> {
+        Map<String, Object> model = ViewUtil.baseModel(ctx);
+        model.put("articles", articuloDao.getAllArticulos());
         String titulo = RequestUtil.getQueryTitulo(ctx);
         String descripcion = RequestUtil.getQueryDescripcion(ctx);
         Usuario user = usuarioDao.getUsuarioByUsername(RequestUtil.getSessionCurrentUser(ctx));
         List<Etiqueta> tags = etiquetaDao.crearListaEtiquetas(RequestUtil.getQueryEtiquetas(ctx));
-        Articulo tmp = new Articulo(titulo, descripcion, user, tags);
-        articuloDao.crearArticulo(tmp);
-        ctx.redirect("/autor"+Path.Web.ARTICLES);
+        if(articuloDao.crearArticulo(titulo, descripcion, user, tags)){
+            model.put("articleSucceeded", true);
+        }else{
+            model.put("articleFailed", true);
+        }
+        ctx.render(Path.Template.ARTICLES, model);
     };
 
     public static Handler handleEliminar = ctx -> {
