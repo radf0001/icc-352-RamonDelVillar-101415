@@ -1,8 +1,5 @@
 package practica.articulo;
 
-import com.google.common.collect.ImmutableList;
-import practica.util.RequestUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 
