@@ -1,1 +1,1 @@
-Contenido de curso-0
+CURSO GIT
