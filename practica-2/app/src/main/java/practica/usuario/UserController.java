@@ -88,7 +88,7 @@ public class UserController {
 
     public static Handler handleEliminar = ctx -> {
         Usuario tmp = usuarioDao.getUsuarioById(RequestUtil.getParamId(ctx));
-        if(tmp != null){
+        if(tmp != null && !RequestUtil.getSessionCurrentUser(ctx).equalsIgnoreCase(tmp.getUsername())){
             usuarioDao.eliminandoUsuario(tmp);
         }
         ctx.redirect("/admin"+Path.Web.USERS);
