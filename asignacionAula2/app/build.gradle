@@ -22,7 +22,7 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
-    implementation('com.h2database:h2:2.1.212')
+    implementation('com.h2database:h2:2.1.214')
     implementation("io.javalin:javalin:5.5.0")
     implementation("io.javalin:javalin-rendering:5.5.0")
     implementation("org.slf4j:slf4j-simple:2.0.7")
