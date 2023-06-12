@@ -13,18 +13,10 @@ import io.javalin.rendering.template.JavalinThymeleaf;
 
 public class Main {
 
-
-    private static String modoConexion = "";
     public static void main(String[] args) throws SQLException {
-        if(args.length >= 1){
-            modoConexion = args[0];
-            System.out.println("Modo de Operacion: "+modoConexion);
-        }
 
         //Iniciando la base de datos.
-        if(modoConexion.isEmpty()) {
-            BootStrapServices.getInstancia().init();
-        }
+        BootStrapServices.getInstancia().init();
 
         String mensaje = "Hola Mundo en Javalin :-D";
         System.out.println(mensaje);
@@ -98,13 +90,4 @@ public class Main {
                 .description("My Application");
         return new OpenApiOptions(applicationInfo).path("/openapi").swagger(new SwaggerOptions("/openapi-ui"));
     }*/
-
-        /**
-     * Nos
-     * @return
-     */
-    public static String getModoConexion(){
-        return modoConexion;
-    }
-
 }

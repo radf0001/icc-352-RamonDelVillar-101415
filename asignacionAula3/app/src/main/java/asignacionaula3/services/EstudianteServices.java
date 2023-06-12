@@ -36,18 +36,4 @@ public class EstudianteServices extends GestionDb<Estudiante> {
         List<Estudiante> lista = query.getResultList();
         return lista;
     }
-
-    /**
-     * Retorna un estudiante dado su matricula
-     * 
-     * @param matricula
-     * @return
-     */
-    public Estudiante getEstudiante(int matricula) {
-        EntityManager em = getEntityManager();
-        Query query = em.createQuery("select e from Estudiante e where e.nombre like :matricula");
-        query.setParameter("matricula", matricula + "%");
-        Estudiante est = (Estudiante) query.getSingleResult();
-        return est;
-    }
 }
