@@ -1,0 +1,122 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<main>
+    <div>
+        <div class="container mx-auto">
+            <div class="py-16 lg:py-20">
+                <div>
+                    <img src="/img/icon-blog.png" alt="icon envelope"/>
+                </div>
+
+                <h1
+                    class="pt-5 font-body text-4xl font-semibold text-primary dark:text-white md:text-5xl lg:text-6xl">
+                    Blog
+                </h1>
+
+                <div class="pt-3 sm:w-3/4">
+                    <select
+                          id="etiquetas"
+                          name="etiquetas[]"
+                          multiple="multiple"
+                          placeholder="Seleccione una etiqueta..."
+                          autocomplete="off"
+                          class="block mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                          required onchange="document.location.href = '/?pagina=0&etiqueta=' + this.value">
+                        #foreach($etiqueta in $etiquetas)
+                            #if($etiqueta.getEtiqueta().equalsIgnoreCase($tag.getEtiqueta()))
+                                <option value="$etiqueta.getId()" selected="selected">$etiqueta.getEtiqueta()</option>
+                            #else
+                                <option value="$etiqueta.getId()">$etiqueta.getEtiqueta()</option>
+                            #end
+                        #end
+                    </select>
+                </div>
+
+                <div class="pt-8 lg:pt-12">
+                    #foreach($article in $articles)
+                        #if($foreach.count == 1)
+                            <div class="border-b border-grey-lighter pb-8">
+                                <span class="mb-4 inline-block rounded-full bg-green-light px-2 py-1 font-body text-sm text-green">$article.stringEtiquetas($article.getId())</span>
+                                <a
+                                        href="/articulo/$article.getId()"
+                                        class="block font-body text-lg font-semibold text-primary transition-colors hover:text-green dark:text-white dark:hover:text-secondary">$article.getTitulo()</a>
+                                <div class="flex items-center pt-4">
+                                    <p class="pr-2 font-body font-light text-primary dark:text-white">
+                                        $article.getFechaParse()
+                                    </p>
+                                    <span class="font-body text-grey dark:text-white">//</span>
+                                    <p class="pl-2 font-body font-light text-primary dark:text-white">
+                                       $article.getAutor().getNombre()
+                                    </p>
+                                </div>
+                                <div class="pr-2 flex items-center">
+                                    <p class="font-body font-light text-primary dark:text-white">
+                                        $article.firstChars()
+                                    </p>
+                                </div>
+                            </div>
+                        #else
+                            <div class="border-b border-grey-lighter pt-10 pb-8">
+                                <div class="flex items-center">
+                            <span class="mb-4 inline-block rounded-full bg-grey-light px-2 py-1 font-body text-sm text-blue-dark">$article.stringEtiquetas($article.getId())</span>
+                                </div>
+                                <a
+                                        href="/articulo/$article.getId()"
+                                        class="block font-body text-lg font-semibold text-primary transition-colors hover:text-green dark:text-white dark:hover:text-secondary">$article.getTitulo()</a>
+                                <div class="flex items-center pt-4">
+                                    <p class="pr-2 font-body font-light text-primary dark:text-white">
+                                        $article.getFechaParse()
+                                    </p>
+                                    <span class="font-body text-grey dark:text-white">//</span>
+                                    <p class="pl-2 font-body font-light text-primary dark:text-white">
+                                        $article.getAutor().getNombre()
+                                    </p>
+                                </div>
+                                <div class="pr-2 flex items-center">
+                                    <p class="font-body font-light text-primary dark:text-white">
+                                        $article.firstChars()
+                                    </p>
+                                </div>
+                            </div>
+                        #end
+                    #end
+                </div>
+
+                <div class="flex pt-8 lg:pt-16">
+                    #if($tag)
+                        <a href="/?pagina=$paginaprev&etiqueta=$tag.getId()" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">Prev</a>
+
+                        <a href="/?pagina=0&etiqueta=$tag.getId()" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">1</a>
+
+                        <a href="/?pagina=5&etiqueta=$tag.getId()" class="ml-3 cursor-pointer border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">
+                            2
+                        </a> 
+                        <a href="/?pagina=10&etiqueta=$tag.getId()" class="ml-3 cursor-pointer border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">
+                            3
+                        </a>
+                        <a href="/?pagina=$pagina&etiqueta=$tag.getId()" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">Next
+                        </a>
+                    #else
+                        <a href="/?pagina=$paginaprev&etiqueta=" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">Prev</a>
+
+                        <a href="/?pagina=0&etiqueta=" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">1</a>
+
+                        <a href="/?pagina=5&etiqueta=" class="ml-3 cursor-pointer border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">
+                            2
+                        </a> 
+                        <a href="/?pagina=10&etiqueta=" class="ml-3 cursor-pointer border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">
+                            3
+                        </a>
+                        <a href="/?pagina=$pagina&etiqueta=" class="group ml-3 flex cursor-pointer items-center border-2 border-primary px-3 py-1 font-body font-medium text-primary transition-colors hover:border-secondary hover:text-secondary dark:border-green-light dark:text-white dark:hover:border-secondary dark:hover:text-secondary">Next
+                        </a>
+                    #end
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+                <script>
+                new TomSelect('#etiquetas', {maxItems: 1});;
+                </script>
+            </div>
+        </div>
+    </div>
+</main>
+#end

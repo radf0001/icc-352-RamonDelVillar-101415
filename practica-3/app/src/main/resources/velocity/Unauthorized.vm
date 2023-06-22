@@ -1,0 +1,6 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<div class="flex items-center container mx-auto">
+    <p class="hidden font-body text-2xl font-bold text-primary dark:text-white lg:block"><strong>Unauthorized (401)<br></strong>We are sorry, but we are not able to authenticate you. You have to subscribe to access these pages. If you are already subscribed, check you gave proper credential in the login step.</p>
+</div>
+#end
