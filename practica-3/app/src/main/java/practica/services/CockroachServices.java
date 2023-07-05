@@ -30,16 +30,15 @@ public class CockroachServices {
 
     public Connection getConexion() {
         Connection con = null;
+        // Esta opcion funciona si la variable esta configurada
         try {
             PGSimpleDataSource ds = new PGSimpleDataSource();
-            // ds.setUrl(System.getenv("JDBC_DATABASE_URL"));
-            ds.setUrl("jdbc:postgresql://brawny-satyr-11524.7tt.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full");
-            ds.setUser("sa");
-            ds.setPassword("7LLUNo-SawF-Zr05Se-LJA");
+            ds.setUrl(System.getenv("JDBC_DATABASE_URL"));
             
             con = ds.getConnection();
-        } catch (SQLException ex) {
-            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, ex);
+        
+        } catch (Exception ex) {
+            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, "CockroachDB");
         }
         return con;
     }
@@ -49,23 +48,28 @@ public class CockroachServices {
             getConexion().close();
             System.out.println("Conexión realizado con exito...");
         } catch (SQLException ex) {
-            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, "CockroachDB");
         }
     }
 
     public void crearTablas() throws  SQLException{
-        String sql = "CREATE TABLE IF NOT EXISTS TABLALOGIN\n" +
-                "(\n" +
-                "  USERNAME VARCHAR(255) NOT NULL,\n" +
-                "  dateLog TIMESTAMP NOT NULL,\n" +
-                "  PRIMARY KEY(USERNAME, DATELOG)\n" +
-                ");";
-        Connection con = getConexion();
-        Statement statement = con.createStatement();
-        statement.execute(sql);
-        statement.close();
-        con.close();
-        System.out.println("CockroachDB: Se crearon las tablas en la base de datos cockroach");
+        try {
+            String sql = "CREATE TABLE IF NOT EXISTS TABLALOGIN\n" +
+                    "(\n" +
+                    "  USERNAME VARCHAR(255) NOT NULL,\n" +
+                    "  dateLog TIMESTAMP NOT NULL,\n" +
+                    "  PRIMARY KEY(USERNAME, DATELOG)\n" +
+                    ");";
+            Connection con = getConexion();
+            Statement statement = con.createStatement();
+            statement.execute(sql);
+            statement.close();
+            con.close();
+            System.out.println("CockroachDB: Se crearon las tablas en la base de datos cockroach");
+        } catch (Exception e) {
+            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, "CockroachDB");
+        }
+
     }
 
     public boolean crearLog(String username, Timestamp timestamp){
@@ -88,13 +92,13 @@ public class CockroachServices {
                 System.out.println("CockroachDB: Se inserto la fila en la base de datos cockroach");
             }
 
-        } catch (SQLException ex) {
-            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, "CockroachDB");
         } finally{
             try {
                 con.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(CockroachServices.class.getName()).log(Level.SEVERE, null, "CockroachDB");
             }
         }
 
