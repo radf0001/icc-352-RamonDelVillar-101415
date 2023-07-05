@@ -6,6 +6,7 @@
         <class>practica.entidades.Comentario</class>
         <class>practica.entidades.Etiqueta</class>
         <class>practica.entidades.Usuario</class>
+        <class>practica.entidades.Foto</class>
         <properties>
             <!--<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test" />-->
             <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/baseBlog1" />
