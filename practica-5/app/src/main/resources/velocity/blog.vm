@@ -1,0 +1,177 @@
+#parse("/velocity/layout.vm")
+#@mainLayout()
+<main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            let totalPages = 10;
+            let ref = 0;
+
+            function fetchNotes(startPage, etitag="") {
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:7000/articulos",
+                    data: {
+                        pagina: startPage,
+                        etiqueta: etitag
+                    },
+                    success: function (response) {
+                        $('#artTable').empty();
+                        //$('#artTable').append("MMG");
+                        // add table rows
+                        $.each(response, (i, art) => {
+                            let artRow = '<div class="border-b border-grey-lighter pb-8"><span class="mb-4 inline-block rounded-full bg-green-light px-2 py-1 font-body text-sm text-green">' + art.stringEtiquetas + `</span><a href="/articulo/${art.id}" class="block font-body text-lg font-semibold text-primary transition-colors hover:text-green dark:text-white dark:hover:text-secondary">` + art.titulo + '</a><div class="flex items-center pt-4"><p class="pr-2 font-body font-light text-primary dark:text-white">' + art.fechaParse + '</p><span class="font-body text-grey dark:text-white">//</span><p class="pl-2 font-body font-light text-primary dark:text-white">' + art.autor.nombre + '</p></div><div class="pr-2 flex items-center"><p class="font-body font-light text-primary dark:text-white">' + art.firstChars + '</p></div></div>';
+                            $('#artTable').append(artRow);
+                        });
+                        $('#here_pagination').empty();
+                        buildPagination(startPage);
+                    },
+                    error: function (e) {
+                        alert("ERROR: ", e);
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
+
+            function buildPagination(pageNumber) {
+
+                var numLinks = 3;
+
+                // print 'previous' link only if not on page one
+                var first = '';
+                var prev = '';
+                if (pageNumber > 0) {
+                    if (pageNumber !== 0) {
+                        first = '<li><a class="inactive group hover:border-secondary hover:text-secondary dark:border-green-light d' +
+                                'ark:text-white dark:hover:border-secondary dark:hover:text-secondary">« First</a></li>';
+                    }
+                    prev = '<li><a class="inactive group hover:border-secondary hover:text-secondary dark:border-green-light d' +
+                            'ark:text-white dark:hover:border-secondary dark:hover:text-secondary">‹ Prev</a></li>';
+                } else {
+                    prev = ''; // on the page one, don't show 'previous' link
+                    first = ''; // nor 'first page' link
+                }
+
+                // print 'next' link only if not on the last page
+                var next = '';
+                var last = '';
+                if (pageNumber < totalPages) {
+                    if (pageNumber !== totalPages - 1) {
+                        next = '<li><a class="inactive group hover:border-secondary hover:text-secondary dark:border-green-light d' +
+                                'ark:text-white dark:hover:border-secondary dark:hover:text-secondary">Next ›</a></li>';
+                        last = '<li><a class="inactive group hover:border-secondary hover:text-secondary dark:border-green-light d' +
+                                'ark:text-white dark:hover:border-secondary dark:hover:text-secondary">Last »</a></li>';
+                    }
+                } else {
+                    next = ''; // on the last page, don't show 'next' link
+                    last = ''; // nor 'last page' link
+                }
+
+                var start = pageNumber - (pageNumber % numLinks) + 1;
+                var end = start + numLinks - 1;
+                end = Math.min(totalPages, end);
+                var pagingLink = '';
+
+                for (var i = start; i <= end; i++) {
+                    if (i == pageNumber + 1) {
+                        pagingLink += '<li><a class="active"> ' + i + ' </a></li>'; // no need to create a link to current page
+                    } else {
+                        pagingLink += '<li><a class="inactive group hover:border-secondary hover:text-secondary dark:border-green-light d' +
+                                'ark:text-white dark:hover:border-secondary dark:hover:text-secondary"> ' + i + ' </a></li>';
+                    }
+                }
+
+                // return the page navigation link
+                pagingLink = first + prev + pagingLink + next + last;
+
+                $('#here_pagination').html(pagingLink);
+            }
+
+            $(document).on("click", "a", function () {
+                let val = $(this).text();
+                let currentActive = $("a.active");
+
+                // click on the NEXT tag
+                if (val.toUpperCase() === "« FIRST") {
+                    ref = 0;
+                    fetchNotes(0);
+                } else if (val.toUpperCase() === "LAST »") {
+                    ref = totalPages - 1;
+                    fetchNotes(totalPages - 1);
+                } else if (val.toUpperCase() === "NEXT ›") {
+                    let activeValue = parseInt(currentActive.text());
+                    if (activeValue < totalPages) {
+                        startPage = activeValue;
+                        ref = startPage;
+                        fetchNotes(startPage);
+                    }
+                } else if (val.toUpperCase() === "‹ PREV") {
+                    let activeValue = parseInt(currentActive.text());
+                    if (activeValue > 1) {
+                        // get the previous page
+                        startPage = activeValue - 2;
+                        ref = startPage;
+                        fetchNotes(startPage);
+                    }
+                } else {
+                    startPage = parseInt(val - 1);
+                    ref = startPage;
+                    fetchNotes(startPage);
+                }
+            });
+
+            $('select').on('change', function() {
+                fetchNotes(ref, this.value);
+            });
+
+            (function () {
+                // get first-page at initial time
+                fetchNotes(0);
+            })();
+        });
+    </script>
+    <div>
+        <div class="container mx-auto">
+            <div class="py-16 lg:py-20">
+                <div>
+                    <img src="/img/icon-blog.png" alt="icon envelope"/>
+                </div>
+
+                <h1
+                    class="pt-5 font-body text-4xl font-semibold text-primary dark:text-white md:text-5xl lg:text-6xl">
+                    Blog
+                </h1>
+
+                <div class="pt-3 sm:w-3/4">
+                    <select
+                        id="etiquetas"
+                        name="etiquetas[]"
+                        multiple="multiple"
+                        placeholder="Seleccione una etiqueta..."
+                        autocomplete="off"
+                        class="block mt-1 border border-primary bg-grey-lightest rounded-md shadow-sm font-body font-light text-primary placeholder-primary transition-colors focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary dark:border-secondary"
+                        required="required">
+                        #foreach($etiqueta in $etiquetas)
+                            #if($etiqueta.getEtiqueta().equalsIgnoreCase($tag.getEtiqueta()))
+                                <option value="$etiqueta.getId()" selected="selected">$etiqueta.getEtiqueta()</option>
+                            #else
+                                <option value="$etiqueta.getId()">$etiqueta.getEtiqueta()</option>
+                            #end
+                        #end
+                    </select>
+                </div>
+
+                <div id="artTable" class="pt-8 lg:pt-12"></div>
+
+                <div class="flex pt-8 lg:pt-16">
+                    <ul id="here_pagination"></ul>
+                </div>
+                <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+                <script>
+                    new TomSelect('#etiquetas', {maxItems: 1});;
+                </script>
+            </div>
+        </div>
+    </div>
+</main>
+#end
