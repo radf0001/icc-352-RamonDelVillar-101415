@@ -1,0 +1,213 @@
+#parse("public/layout.vm")
+#@mainLayout()
+<script>
+    //dependiendo el navegador busco la referencia del objeto.
+    var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
+
+    //indicamos el nombre y la versión
+    var dataBase = indexedDB.open("proyecto_final", 1);
+
+
+    //se ejecuta la primera vez que se crea la estructura
+    //o se cambia la versión de la base de datos.
+    dataBase.onupgradeneeded = function (e) {
+        console.log("Creando la estructura de la tabla");
+
+        //obteniendo la conexión activa
+        active = dataBase.result;
+
+        //creando la colección:
+        //En este caso, la colección, tendrá un ID autogenerado.
+        var formularios = active.createObjectStore("formularios", { keyPath : 'id', autoIncrement : true });
+    };
+
+    //El evento que se dispara una vez, lo
+    dataBase.onsuccess = function (e) {
+        console.log('Proceso ejecutado de forma correctamente');
+        cargarPagina();
+    };
+
+    dataBase.onerror = function (e) {
+        console.error('Error en el proceso: '+e.target.errorCode);
+    };
+
+    var idForm = localStorage.getItem("idForm");
+    if (idForm == null) {
+        idForm = 0;
+    }
+
+    function guardar() {
+        if(document.getElementById("val-nombre").value.length >= 2 && document.getElementById("val-sector").value.length >= 3 && document.getElementById("val-nivel").value.length >= 5){
+            if (idForm > 0) {
+                var data = dataBase.result.transaction(["formularios"],"readwrite");
+                var formularios = data.objectStore("formularios");
+                //buscando estudiante por la referencia al key.
+                formularios.get(Number(idForm)).onsuccess = function(e) {
+
+                    var resultado = e.target.result;
+
+                    if(resultado !== undefined){
+
+                        resultado.nombre = document.getElementById("val-nombre").value;
+                        resultado.sector = document.getElementById("val-sector").value;
+                        resultado.nivel = document.getElementById("val-nivel").value;
+
+                        var solicitudUpdate = formularios.put(resultado);
+
+                        //eventos.
+                        solicitudUpdate.onsuccess = function (e) {
+                            alert("Formulario editado correctamente....");
+                        }
+
+                        solicitudUpdate.onerror = function (e) {
+                            alert("No se edito el formulario debido a un error inesperado");
+                        }
+
+                    }else{
+                        alert("Formulario no encontrado no se pudo editar...");
+                    }
+                };
+            } else {
+                var dbActiva = dataBase.result; //Nos retorna una referencia al IDBDatabase.
+
+                //Para realizar una operación de agreagr, actualización o borrar.
+                // Es necesario abrir una transacción e indicar un modo: readonly, readwrite y versionchange
+                var transaccion = dbActiva.transaction(["formularios"], "readwrite");
+
+                //Manejando los errores.
+                transaccion.onerror = function (e) {
+                    alert(request.error.name + '\n\n' + request.error.message);
+                };
+
+                transaccion.oncomplete = function (e) {
+                    alert('Formulario agregado correctamente');
+                };
+
+                //abriendo la colección de datos que estaremos usando.
+                var formularios = transaccion.objectStore("formularios");
+
+                //Para agregar se puede usar add o put, el add requiere que no exista
+                // el objeto.
+                var request = formularios.put({
+                    nombre: document.querySelector("#val-nombre").value,
+                    sector: document.querySelector("#val-sector").value,
+                    nivel: document.querySelector("#val-nivel").value
+                });
+
+                request.onerror = function (e) {
+                    var mensaje = "Error: "+e.target.errorCode;
+                    alert(mensaje)
+                };
+
+                request.onsuccess = function (e) {
+                    alert("Formulario Procesado con exito");
+                    document.querySelector("#val-nombre").value = "";
+                    document.querySelector("#val-sector").value = "";
+                    document.querySelector("#val-nivel").value = "";
+                };
+            }
+            localStorage.removeItem("idForm");
+            window.location.replace("/tabla");
+        }
+    }
+
+    function cargarPagina() {
+        if (idForm > 0) {
+            //abriendo la transacción en modo readonly.
+            var data = dataBase.result.transaction(["formularios"]);
+            var formularios = data.objectStore("formularios")
+
+            //buscando estudiante por la referencia al key.
+            formularios.get(Number(idForm)).onsuccess = function(e) {
+                var resultado = e.target.result;
+
+                if(resultado !== undefined){
+
+                    document.getElementById("val-nombre").value = ""+resultado.nombre;
+                    document.getElementById("val-sector").value = ""+resultado.sector;
+                    document.getElementById("val-nivel").value = ""+resultado.nivel;
+                    //recuperando el objeto.
+                    // formularios_recuperados.push(resultado.value);
+
+                    //Función que permite seguir recorriendo el cursor.
+                    // resultado.continue();
+
+                }else {
+                    alert("Formulario no encontrado...");
+                }
+            };
+
+            //Una vez que se realiza la operación llamo la impresión.
+            // data.oncomplete = function () {
+            //     for (var key in formularios_recuperados) {
+            //         document.getElementById("val-nombre").value = ""+formularios_recuperados[key].nombre;
+            //         document.getElementById("val-sector").value = ""+formularios_recuperados[key].sector;
+            //         document.getElementById("val-nivel").value = ""+formularios_recuperados[key].nivel;
+            //     }
+            // }
+        }
+    }
+</script>
+<div class="content-body">
+
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+                <li class="breadcrumb-item active"><a href="/">Home</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- row -->
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Formulario</h4>
+                        <div class="form-validation">
+                            <form class="form-valide">
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-nombre">Nombre <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="val-nombre" name="val-nombre" placeholder="Ingrese su nombre..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-sector">Sector <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" id="val-sector" name="val-sector" placeholder="Su sector..">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-nivel">Nivel Escolar <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" id="val-nivel" name="val-nivel">
+                                            <option value="">Please select</option>
+                                            <option value="basico">Basico</option>
+                                            <option value="medio">Medio</option>
+                                            <option value="grado">Grado</option>
+                                            <option value="postgrado">Postgrado</option>
+                                            <option value="doctorado">Doctorado</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-8 ml-auto">
+                                        <button type="button" class="btn btn-primary" onclick="guardar()">Guardar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+#end
