@@ -38,6 +38,7 @@ public class LoginControlador {
         } else {
             String user = RequestUtil.getQueryLoginUsername(ctx).toLowerCase();
             ctx.sessionAttribute("currentUser", user);
+            usuarioActual = user;
             if(RequestUtil.getQueryLoginCookie(ctx)){
                 BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
                 textEncryptor.setPasswordCharArray("some-random-data".toCharArray());
@@ -53,6 +54,7 @@ public class LoginControlador {
 
     public static Handler handleLogoutPost = ctx -> {
         ctx.sessionAttribute("currentUser", null);
+        usuarioActual = null;
         ctx.sessionAttribute("authenticationFailed", null);
         ctx.redirect(Path.Web.LOGIN);
     };

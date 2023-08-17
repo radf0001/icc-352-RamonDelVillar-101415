@@ -17,16 +17,26 @@ public class Formulario {
     private String sector;
     private String nivelEscolar;
     private String fecha;
+    private String latitude;
+    private String longitude;
+    private String accuracy;
+
     @Reference(idOnly = true)
     private Usuario user;
 
+    @Reference(idOnly = true)
+    private Foto foto;
+
     public Formulario(){};
-    public Formulario(String nombre, String sector, String nivelEscolar, Usuario user) {
+    public Formulario(String nombre, String sector, String nivelEscolar, Usuario user, String latitude, String longitude, String accuracy) {
         this.nombre = nombre;
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
         this.user= user;
         this.fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss"));
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.accuracy = accuracy;
     }
 
     public String getNombre() {
@@ -77,6 +87,30 @@ public class Formulario {
         this.fecha = fecha;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+    public String getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+    public String getAccuracy() {
+        return accuracy;
+    }
+    public void setAccuracy(String accuracy) {
+        this.accuracy = accuracy;
+    }
+    public Foto getFoto() {
+        return foto;
+    }
+    public void setFoto(Foto foto) {
+        this.foto = foto;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

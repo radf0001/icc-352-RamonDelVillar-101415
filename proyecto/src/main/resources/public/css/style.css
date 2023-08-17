@@ -11639,6 +11639,10 @@ table.dataTable thead .sorting::after {
 .timeline-badge.info {
   background-color: #4d7cff !important; }
 
+.geolocation {
+  width: 100%; 
+  height: 300px; }
+
 .stat-widget-one {
   padding: 2rem;
   text-align: center; }

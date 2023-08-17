@@ -91,7 +91,10 @@
                 var request = formularios.put({
                     nombre: document.querySelector("#val-nombre").value,
                     sector: document.querySelector("#val-sector").value,
-                    nivel: document.querySelector("#val-nivel").value
+                    nivel: document.querySelector("#val-nivel").value,
+                    latitude: 19.4517000,
+                    longitude: -70.6970300,
+                    accuracy: 0
                 });
 
                 request.onerror = function (e) {
@@ -126,25 +129,10 @@
                     document.getElementById("val-nombre").value = ""+resultado.nombre;
                     document.getElementById("val-sector").value = ""+resultado.sector;
                     document.getElementById("val-nivel").value = ""+resultado.nivel;
-                    //recuperando el objeto.
-                    // formularios_recuperados.push(resultado.value);
-
-                    //Función que permite seguir recorriendo el cursor.
-                    // resultado.continue();
-
                 }else {
                     alert("Formulario no encontrado...");
                 }
             };
-
-            //Una vez que se realiza la operación llamo la impresión.
-            // data.oncomplete = function () {
-            //     for (var key in formularios_recuperados) {
-            //         document.getElementById("val-nombre").value = ""+formularios_recuperados[key].nombre;
-            //         document.getElementById("val-sector").value = ""+formularios_recuperados[key].sector;
-            //         document.getElementById("val-nivel").value = ""+formularios_recuperados[key].nivel;
-            //     }
-            // }
         }
     }
 </script>

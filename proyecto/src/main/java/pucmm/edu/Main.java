@@ -16,13 +16,18 @@ import pucmm.edu.controladores.FormularioControlador;
 import pucmm.edu.controladores.IndexControlador;
 import pucmm.edu.controladores.LoginControlador;
 import pucmm.edu.controladores.UsuarioControlador;
+import pucmm.edu.encapsulaciones.Formulario;
 import pucmm.edu.servicios.FormularioServices;
 import pucmm.edu.servicios.FotoServices;
 import pucmm.edu.servicios.UsuarioServices;
 import pucmm.edu.util.RolesApp;
 import pucmm.edu.util.ViewUtil;
 import pucmm.edu.util.Path;
+
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static io.javalin.apibuilder.ApiBuilder.*;
 
@@ -30,6 +35,7 @@ public class Main {
     public static UsuarioServices usuarioServices;
     public static FotoServices fotoServices;
     public static FormularioServices formularioServices;
+    public static String usuarioActual;
 
     public static void main(String[] args) {
         JavalinRenderer.register(new JavalinVelocity(), ".vm");
@@ -190,7 +196,15 @@ public class Main {
             });
 
             ws.onMessage(ctx -> {
-                System.out.println("Mensaje: "+ctx.message());
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode jsonNode = objectMapper.readTree(ctx.message());
+                Formulario form = formularioServices.crear(new Formulario(jsonNode.get("nombre").toString().replaceAll("\"", ""), jsonNode.get("sector").toString().replaceAll("\"", ""), jsonNode.get("nivel").toString().replaceAll("\"", ""), usuarioServices.getUsuarioByUsername(usuarioActual), jsonNode.get("latitude").toString(), jsonNode.get("longitude").toString(), jsonNode.get("accuracy").toString()));
+
+                if(form != null){
+                    ctx.session.getRemote().sendString(jsonNode.get("id").toString());
+                } else{
+                    ctx.session.getRemote().sendString("0");
+                }
             });
 
             ws.onBinaryMessage(ctx -> {
