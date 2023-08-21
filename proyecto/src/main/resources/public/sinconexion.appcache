@@ -4,6 +4,12 @@ CACHE MANIFEST
 
 #Trama que indica que 
 CACHE:
+/icons/font-awesome/fonts/fontawesome-webfont3e6e.woff2?v=4.7.0
+/icons/font-awesome/fonts/fontawesome-webfont3e6e.woff?v=4.7.0
+/icons/font-awesome/fonts/fontawesome-webfont3e6e.ttf?v=4.7.0
+/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.ttf?-i3a2kk
+/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.woff2?-i3a2kk
+/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.woff?-i3a2kk
 /images/tv.png
 /plugins/tables/css/datatable/dataTables.bootstrap4.min.css
 /images/playdom.png
@@ -30,7 +36,6 @@ CACHE:
 /plugins/bootstrap-select/dist/css/bootstrap-select.min.css
 /css/style.css
 /css/style.css.map
-/css/webcam-demo.css
 /plugins/common/common.min.js
 /js/custom.min.js
 /js/settings.js
@@ -38,6 +43,9 @@ CACHE:
 /offline
 /tabla
 /crear
+/css/webcam-demo.css
+/js/jquery-3.3.1.min.js
+/js/webcam-easy.min.js
 
 NETWORK:
 /

@@ -1,9 +1,5 @@
-/**
- * Ejemplo de un script de service workers.
- */
-
 //Cache activo.
-var CACHE_NAME = 'happyday110';
+var CACHE_NAME = 'badday10';
 //listado de
 var urlsToCache = [
     '/icons/font-awesome/fonts/fontawesome-webfont3e6e.woff2?v=4.7.0',
@@ -12,8 +8,6 @@ var urlsToCache = [
     '/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.ttf?-i3a2kk',
     '/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.woff2?-i3a2kk',
     '/icons/simple-line-icons/fonts/Simple-Line-Icons4c82.woff?-i3a2kk',
-    '/js/jquery-3.3.1.min.js',
-    '/js/webcam-easy.min.js',
     '/images/tv.png',
     '/plugins/tables/css/datatable/dataTables.bootstrap4.min.css',
     '/images/playdom.png',
@@ -40,14 +34,16 @@ var urlsToCache = [
     '/plugins/bootstrap-select/dist/css/bootstrap-select.min.css',
     '/css/style.css',
     '/css/style.css.map',
-    '/css/webcam-demo.css',
     '/plugins/common/common.min.js',
     '/js/custom.min.js',
     '/js/settings.js',
     '/js/gleek.js',
     '/offline',
     '/tabla',
-    '/crear'
+    '/crear',
+    '/css/webcam-demo.css',
+    '/js/jquery-3.3.1.min.js',
+    '/js/webcam-easy.min.js',
 ];
 //ruta para fallback.
 var fallback = "/offline"
