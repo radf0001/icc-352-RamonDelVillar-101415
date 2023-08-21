@@ -78,18 +78,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                ## <div class="form-group row">
-                                ##     <label class="col-lg-4 col-form-label" for="val-foto">Foto</label>
-                                ##     <div class="col-lg-6">
-                                ##         <div class="card" >
-                                ##             <img src="data:${form.getFoto().getMimeType()};base64,$form.getFoto().getFotoBase64()" class="card-img-top" alt="Foto enviada">
-                                ##             <div class="card-body">
-                                ##                 <h5 class="card-title">$form.getFoto().getNombre()</h5>
-                                ##                 <p class="card-text">Foto del tipo: $form.getFoto().getMimeType()</p>
-                                ##             </div>
-                                ##         </div>
-                                ##     </div>
-                                ## </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-4 col-form-label" for="val-foto">Foto</label>
+                                    <div class="col-lg-6">
+                                        <div class="card">
+                                            <img src="data:${form.getFoto().getMimeType()};base64,$form.getFoto().getFotoBase64()" class="card-img-top" alt="Foto enviada">
+                                            <div class="card-body">
+                                                <h5 class="card-title">$form.getFoto().getNombre()</h5>
+                                                <p class="card-text">Foto del tipo: $form.getFoto().getMimeType()</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-lg-4 col-form-label" for="val-mapa">Mapa</label>
                                     <div class="col-lg-6">

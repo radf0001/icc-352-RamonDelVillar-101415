@@ -17,6 +17,7 @@ import pucmm.edu.controladores.IndexControlador;
 import pucmm.edu.controladores.LoginControlador;
 import pucmm.edu.controladores.UsuarioControlador;
 import pucmm.edu.encapsulaciones.Formulario;
+import pucmm.edu.encapsulaciones.Foto;
 import pucmm.edu.servicios.FormularioServices;
 import pucmm.edu.servicios.FotoServices;
 import pucmm.edu.servicios.UsuarioServices;
@@ -117,7 +118,7 @@ public class Main {
             //para obtener el usuario estaré utilizando el contexto de sesion.
             final String username = ctx.sessionAttribute("currentUser");
 
-            if (permittedRoles.isEmpty() && username == null) {
+            if ((permittedRoles.isEmpty() && username == null) || ctx.path().startsWith("/crear") || ctx.path().startsWith("/tabla") || ctx.path().startsWith("/offline")) {
                 handler.handle(ctx);
                 return;
             }
@@ -146,6 +147,10 @@ public class Main {
 
         app.routes(() -> {
             path("/", () -> {
+                get("/offline", ctx -> {
+                    Map<String, Object> modelo = ViewUtil.baseModel(ctx);
+                    ctx.render("/public/page-error-internet.vm", modelo);
+                });
                 get("/tabla", ctx -> {
                     Map<String, Object> modelo = ViewUtil.baseModel(ctx);
                     ctx.render("/public/tablaFormularioOffline.vm", modelo);
@@ -198,7 +203,9 @@ public class Main {
             ws.onMessage(ctx -> {
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonNode jsonNode = objectMapper.readTree(ctx.message());
-                Formulario form = formularioServices.crear(new Formulario(jsonNode.get("nombre").toString().replaceAll("\"", ""), jsonNode.get("sector").toString().replaceAll("\"", ""), jsonNode.get("nivel").toString().replaceAll("\"", ""), usuarioServices.getUsuarioByUsername(usuarioActual), jsonNode.get("latitude").toString(), jsonNode.get("longitude").toString(), jsonNode.get("accuracy").toString()));
+                Foto foto = fotoServices.crear(new Foto(jsonNode.get("nombre").toString().replaceAll("\"", ""), jsonNode.get("mimetype").toString().replaceAll("\"", ""), jsonNode.get("base64").toString().replaceAll("\"", "")));
+
+                Formulario form = formularioServices.crear(new Formulario(jsonNode.get("nombre").toString().replaceAll("\"", ""), jsonNode.get("sector").toString().replaceAll("\"", ""), jsonNode.get("nivel").toString().replaceAll("\"", ""), usuarioServices.getUsuarioByUsername(usuarioActual), jsonNode.get("latitude").toString(), jsonNode.get("longitude").toString(), jsonNode.get("accuracy").toString(), foto));
 
                 if(form != null){
                     ctx.session.getRemote().sendString(jsonNode.get("id").toString());
@@ -218,7 +225,7 @@ public class Main {
             ws.onError(ctx -> {
                 System.out.println("Ocurrió un error en el WS");
             });
-        });
+        }, RolesApp.ROLE_USUARIO);
     }
 
     /**

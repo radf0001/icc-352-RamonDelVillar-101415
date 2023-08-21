@@ -127,8 +127,8 @@
                     </a>
                     <ul aria-expanded="false">
                         <li><a href="/formularios">Listar Enviados</a></li>
-                        <li><a href="/formularios">Listar No Enviados</a></li>
-                        <li><a href="/formulario">Crear</a></li>
+                        <li><a href="/tabla">Listar No Enviados</a></li>
+                        <li><a href="/crear">Crear</a></li>
                     </ul>
                 </li>
             </ul>

@@ -85,7 +85,7 @@
                                     <label class="col-lg-4 col-form-label" for="val-foto">Foto</label>
                                     <div class="col-lg-6">
                                         #if($user.getFoto())
-                                            <div class="card" >
+                                            <div class="card">
                                                 <img src="data:${user.getFoto().getMimeType()};base64,$user.getFoto().getFotoBase64()" class="card-img-top" alt="Foto enviada">
                                                 <div class="card-body">
                                                     <h5 class="card-title">$user.getFoto().getNombre()</h5>

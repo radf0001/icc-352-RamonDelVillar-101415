@@ -28,7 +28,7 @@ public class Formulario {
     private Foto foto;
 
     public Formulario(){};
-    public Formulario(String nombre, String sector, String nivelEscolar, Usuario user, String latitude, String longitude, String accuracy) {
+    public Formulario(String nombre, String sector, String nivelEscolar, Usuario user, String latitude, String longitude, String accuracy, Foto foto) {
         this.nombre = nombre;
         this.sector = sector;
         this.nivelEscolar = nivelEscolar;
@@ -37,6 +37,7 @@ public class Formulario {
         this.latitude = latitude;
         this.longitude = longitude;
         this.accuracy = accuracy;
+        this.foto = foto;
     }
 
     public String getNombre() {
