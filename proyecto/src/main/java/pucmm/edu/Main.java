@@ -18,6 +18,7 @@ import pucmm.edu.controladores.LoginControlador;
 import pucmm.edu.controladores.UsuarioControlador;
 import pucmm.edu.encapsulaciones.Formulario;
 import pucmm.edu.encapsulaciones.Foto;
+import pucmm.edu.encapsulaciones.Usuario;
 import pucmm.edu.servicios.FormularioServices;
 import pucmm.edu.servicios.FotoServices;
 import pucmm.edu.servicios.UsuarioServices;
@@ -43,8 +44,10 @@ public class Main {
         usuarioServices = UsuarioServices.getInstancia();
         fotoServices = FotoServices.getInstancia();
         formularioServices = FormularioServices.getInstancia();
-//        usuarioServices.crear(new Usuario("admin", "admin", "admin", RolesApp.ROLE_ADMIN));
-//        usuarioServices.crear(new Usuario("autor", "autor", "autor", RolesApp.ROLE_USUARIO));
+        if(usuarioServices.findAll().isEmpty()){
+            usuarioServices.crear(new Usuario("admin", "admin", "admin", RolesApp.ROLE_ADMIN));
+            usuarioServices.crear(new Usuario("user", "user", "user", RolesApp.ROLE_USUARIO));
+        }
         //Creando la instancia del servidor y configurando.
         Javalin app = Javalin.create(config ->{
             //configurando los documentos estaticos.
