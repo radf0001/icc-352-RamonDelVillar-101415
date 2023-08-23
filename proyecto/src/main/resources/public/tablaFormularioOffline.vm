@@ -151,7 +151,7 @@
 
         //indicando los eventos:
         webSocket.onmessage = function(data){recibirInformacionServidor(data);};
-        webSocket.onopen  = function(e){ console.log("Conectado - status "+this.readyState); };
+        webSocket.onopen  = function(e){ console.log("Conectado - status "+this.readyState + " " + this.url); };
         webSocket.onclose = function(e){
             console.log("Desconectado - status "+this.readyState);
         };
