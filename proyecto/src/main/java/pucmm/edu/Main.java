@@ -4,6 +4,7 @@ import io.javalin.http.staticfiles.Location;
 import io.javalin.Javalin;
 import io.javalin.rendering.JavalinRenderer;
 import io.javalin.rendering.template.JavalinVelocity;
+import javalinjwt.JWTProvider;
 import io.javalin.openapi.JsonSchemaLoader;
 import io.javalin.openapi.JsonSchemaResource;
 import io.javalin.openapi.plugin.OpenApiPlugin;
@@ -13,6 +14,8 @@ import io.javalin.openapi.plugin.redoc.ReDocPlugin;
 import io.javalin.openapi.plugin.swagger.SwaggerConfiguration;
 import io.javalin.openapi.plugin.swagger.SwaggerPlugin;
 import pucmm.edu.controladores.FormularioControlador;
+import pucmm.edu.controladores.ProviderExample;
+import pucmm.edu.controladores.RestControlador;
 import pucmm.edu.controladores.IndexControlador;
 import pucmm.edu.controladores.LoginControlador;
 import pucmm.edu.controladores.UsuarioControlador;
@@ -38,8 +41,11 @@ public class Main {
     public static FotoServices fotoServices;
     public static FormularioServices formularioServices;
     public static String usuarioActual;
+    public static JWTProvider<Usuario> provider;
 
     public static void main(String[] args) {
+        provider = ProviderExample.createHMAC512();
+
         JavalinRenderer.register(new JavalinVelocity(), ".vm");
         usuarioServices = UsuarioServices.getInstancia();
         fotoServices = FotoServices.getInstancia();
@@ -180,6 +186,15 @@ public class Main {
                 get(Path.Web.VER, FormularioControlador.serveVerPage, RolesApp.ROLE_USUARIO);
 //          GET FORMULARIOS
                 get(Path.Web.FETCH_FORMULARIOS, FormularioControlador.fetchAllFormularios, RolesApp.ROLE_USUARIO);
+            });
+
+            path("/rest", () -> {
+//          LOGIN / JWT GENERATE
+                post("/login", RestControlador.loginPost);
+//          FORM X USER
+                get("/form", RestControlador.formsXuser);
+//          CREAR FORM
+                post("/form", RestControlador.crearForm);
             });
         });
         app.error(401, ViewUtil.error401);

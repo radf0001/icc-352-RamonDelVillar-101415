@@ -65,6 +65,9 @@ dependencies {
 
     // JASYPT
     implementation 'org.jasypt:jasypt:1.9.2'
+    implementation 'com.auth0:java-jwt:4.4.0'
+    implementation 'com.github.kmehrunes:javalin-jwt:0.7.0'
+
 }
 
 shadowJar{
