@@ -147,6 +147,8 @@
     }
     
     function conectar() {
+        console.log(location.hostname);
+        console.log(location.port);
         webSocket = new WebSocket("wss://" + location.hostname + ":" + location.port + "/mensajeServidor");
 
         //indicando los eventos:
