@@ -40,11 +40,11 @@
                                 <h4 class="mt-4"><i class="fa fa-thumbs-down text-danger"></i> No tienes Internet</h4>
                                 <p>Tratar de reconectar a la red</p>
                                 <form class="mt-5 mb-5">    
-                                    <div class="text-center mb-4 mt-4"><a href="/" class="btn btn-primary">Ir a Crud Offline de Formularios</a>
+                                    <div class="text-center mb-4 mt-4"><a href="/tabla" class="btn btn-primary">Ir a Crud Offline de Formularios</a>
                                     </div>
                                 </form>
                                 <div class="text-center">
-                                    <p>Presione aqui para ir a Paginas Offline: <a href="https://github.com/radf0001">Crear Formularios</a> y <a href="https://github.com/radf0001">Crud Formularios</a></p>
+                                    <p>Presione aqui para ir a Paginas Offline: <a href="/crear">Crear Formularios</a> y <a href="/tabla">Crud Formularios</a></p>
                                 </div>
                             </div>
                         </div>
