@@ -1,4 +1,4 @@
-package pucmm.edu.controladores;
+package pucmm.edu.rest;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;

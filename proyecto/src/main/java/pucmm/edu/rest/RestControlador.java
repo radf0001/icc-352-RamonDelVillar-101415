@@ -1,6 +1,7 @@
-package pucmm.edu.controladores;
+package pucmm.edu.rest;
 import io.javalin.http.Handler;
 import javalinjwt.JavalinJWT;
+import pucmm.edu.controladores.LoginControlador;
 import pucmm.edu.encapsulaciones.Formulario;
 import pucmm.edu.encapsulaciones.Foto;
 import pucmm.edu.encapsulaciones.Usuario;
