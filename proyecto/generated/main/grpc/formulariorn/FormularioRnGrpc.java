@@ -15,34 +15,34 @@ public final class FormularioRnGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<formulariorn.FormularioRnOuterClass.FormularioRequest,
-      formulariorn.FormularioRnOuterClass.FormularioResponse> getGetFormulariosMethod;
+      formulariorn.FormularioRnOuterClass.ListaFormulario> getListaFormularioxUserMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "getFormularios",
+      fullMethodName = SERVICE_NAME + '/' + "listaFormularioxUser",
       requestType = formulariorn.FormularioRnOuterClass.FormularioRequest.class,
-      responseType = formulariorn.FormularioRnOuterClass.FormularioResponse.class,
+      responseType = formulariorn.FormularioRnOuterClass.ListaFormulario.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<formulariorn.FormularioRnOuterClass.FormularioRequest,
-      formulariorn.FormularioRnOuterClass.FormularioResponse> getGetFormulariosMethod() {
-    io.grpc.MethodDescriptor<formulariorn.FormularioRnOuterClass.FormularioRequest, formulariorn.FormularioRnOuterClass.FormularioResponse> getGetFormulariosMethod;
-    if ((getGetFormulariosMethod = FormularioRnGrpc.getGetFormulariosMethod) == null) {
+      formulariorn.FormularioRnOuterClass.ListaFormulario> getListaFormularioxUserMethod() {
+    io.grpc.MethodDescriptor<formulariorn.FormularioRnOuterClass.FormularioRequest, formulariorn.FormularioRnOuterClass.ListaFormulario> getListaFormularioxUserMethod;
+    if ((getListaFormularioxUserMethod = FormularioRnGrpc.getListaFormularioxUserMethod) == null) {
       synchronized (FormularioRnGrpc.class) {
-        if ((getGetFormulariosMethod = FormularioRnGrpc.getGetFormulariosMethod) == null) {
-          FormularioRnGrpc.getGetFormulariosMethod = getGetFormulariosMethod =
-              io.grpc.MethodDescriptor.<formulariorn.FormularioRnOuterClass.FormularioRequest, formulariorn.FormularioRnOuterClass.FormularioResponse>newBuilder()
+        if ((getListaFormularioxUserMethod = FormularioRnGrpc.getListaFormularioxUserMethod) == null) {
+          FormularioRnGrpc.getListaFormularioxUserMethod = getListaFormularioxUserMethod =
+              io.grpc.MethodDescriptor.<formulariorn.FormularioRnOuterClass.FormularioRequest, formulariorn.FormularioRnOuterClass.ListaFormulario>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
-              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "getFormularios"))
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "listaFormularioxUser"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   formulariorn.FormularioRnOuterClass.FormularioRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  formulariorn.FormularioRnOuterClass.FormularioResponse.getDefaultInstance()))
-              .setSchemaDescriptor(new FormularioRnMethodDescriptorSupplier("getFormularios"))
+                  formulariorn.FormularioRnOuterClass.ListaFormulario.getDefaultInstance()))
+              .setSchemaDescriptor(new FormularioRnMethodDescriptorSupplier("listaFormularioxUser"))
               .build();
         }
       }
     }
-    return getGetFormulariosMethod;
+    return getListaFormularioxUserMethod;
   }
 
   private static volatile io.grpc.MethodDescriptor<formulariorn.FormularioRnOuterClass.FormularioResponse,
@@ -157,9 +157,9 @@ public final class FormularioRnGrpc {
 
     /**
      */
-    public void getFormularios(formulariorn.FormularioRnOuterClass.FormularioRequest request,
-        io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.FormularioResponse> responseObserver) {
-      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetFormulariosMethod(), responseObserver);
+    public void listaFormularioxUser(formulariorn.FormularioRnOuterClass.FormularioRequest request,
+        io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.ListaFormulario> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListaFormularioxUserMethod(), responseObserver);
     }
 
     /**
@@ -182,12 +182,12 @@ public final class FormularioRnGrpc {
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
-            getGetFormulariosMethod(),
+            getListaFormularioxUserMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
               new MethodHandlers<
                 formulariorn.FormularioRnOuterClass.FormularioRequest,
-                formulariorn.FormularioRnOuterClass.FormularioResponse>(
-                  this, METHODID_GET_FORMULARIOS)))
+                formulariorn.FormularioRnOuterClass.ListaFormulario>(
+                  this, METHODID_LISTA_FORMULARIOX_USER)))
           .addMethod(
             getCrearFormularioMethod(),
             io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -222,10 +222,10 @@ public final class FormularioRnGrpc {
 
     /**
      */
-    public void getFormularios(formulariorn.FormularioRnOuterClass.FormularioRequest request,
-        io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.FormularioResponse> responseObserver) {
+    public void listaFormularioxUser(formulariorn.FormularioRnOuterClass.FormularioRequest request,
+        io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.ListaFormulario> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
-          getChannel().newCall(getGetFormulariosMethod(), getCallOptions()), request, responseObserver);
+          getChannel().newCall(getListaFormularioxUserMethod(), getCallOptions()), request, responseObserver);
     }
 
     /**
@@ -264,9 +264,9 @@ public final class FormularioRnGrpc {
 
     /**
      */
-    public formulariorn.FormularioRnOuterClass.FormularioResponse getFormularios(formulariorn.FormularioRnOuterClass.FormularioRequest request) {
+    public formulariorn.FormularioRnOuterClass.ListaFormulario listaFormularioxUser(formulariorn.FormularioRnOuterClass.FormularioRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
-          getChannel(), getGetFormulariosMethod(), getCallOptions(), request);
+          getChannel(), getListaFormularioxUserMethod(), getCallOptions(), request);
     }
 
     /**
@@ -303,10 +303,10 @@ public final class FormularioRnGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<formulariorn.FormularioRnOuterClass.FormularioResponse> getFormularios(
+    public com.google.common.util.concurrent.ListenableFuture<formulariorn.FormularioRnOuterClass.ListaFormulario> listaFormularioxUser(
         formulariorn.FormularioRnOuterClass.FormularioRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
-          getChannel().newCall(getGetFormulariosMethod(), getCallOptions()), request);
+          getChannel().newCall(getListaFormularioxUserMethod(), getCallOptions()), request);
     }
 
     /**
@@ -329,7 +329,7 @@ public final class FormularioRnGrpc {
     }
   }
 
-  private static final int METHODID_GET_FORMULARIOS = 0;
+  private static final int METHODID_LISTA_FORMULARIOX_USER = 0;
   private static final int METHODID_CREAR_FORMULARIO = 1;
   private static final int METHODID_LISTA_FORMULARIO = 2;
 
@@ -350,9 +350,9 @@ public final class FormularioRnGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_GET_FORMULARIOS:
-          serviceImpl.getFormularios((formulariorn.FormularioRnOuterClass.FormularioRequest) request,
-              (io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.FormularioResponse>) responseObserver);
+        case METHODID_LISTA_FORMULARIOX_USER:
+          serviceImpl.listaFormularioxUser((formulariorn.FormularioRnOuterClass.FormularioRequest) request,
+              (io.grpc.stub.StreamObserver<formulariorn.FormularioRnOuterClass.ListaFormulario>) responseObserver);
           break;
         case METHODID_CREAR_FORMULARIO:
           serviceImpl.crearFormulario((formulariorn.FormularioRnOuterClass.FormularioResponse) request,
@@ -423,7 +423,7 @@ public final class FormularioRnGrpc {
         if (result == null) {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new FormularioRnFileDescriptorSupplier())
-              .addMethod(getGetFormulariosMethod())
+              .addMethod(getListaFormularioxUserMethod())
               .addMethod(getCrearFormularioMethod())
               .addMethod(getListaFormularioMethod())
               .build();

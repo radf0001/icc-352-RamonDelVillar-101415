@@ -3764,14 +3764,14 @@ public final class FormularioRnOuterClass {
       "curacy\030\007 \001(\t\022\017\n\007usuario\030\010 \001(\t\022\020\n\010mimetyp" +
       "e\030\t \001(\t\022\016\n\006base64\030\n \001(\t\"G\n\017ListaFormular" +
       "io\0224\n\nformulario\030\001 \003(\0132 .formulariorn.Fo" +
-      "rmularioResponse\"\007\n\005Empty2\201\002\n\014Formulario" +
-      "Rn\022S\n\016getFormularios\022\037.formulariorn.Form" +
-      "ularioRequest\032 .formulariorn.FormularioR" +
-      "esponse\022U\n\017crearFormulario\022 .formularior" +
-      "n.FormularioResponse\032 .formulariorn.Form" +
-      "ularioResponse\022E\n\017listaFormulario\022\023.form" +
-      "ulariorn.Empty\032\035.formulariorn.ListaFormu" +
-      "lariob\006proto3"
+      "rmularioResponse\"\007\n\005Empty2\204\002\n\014Formulario" +
+      "Rn\022V\n\024listaFormularioxUser\022\037.formularior" +
+      "n.FormularioRequest\032\035.formulariorn.Lista" +
+      "Formulario\022U\n\017crearFormulario\022 .formular" +
+      "iorn.FormularioResponse\032 .formulariorn.F" +
+      "ormularioResponse\022E\n\017listaFormulario\022\023.f" +
+      "ormulariorn.Empty\032\035.formulariorn.ListaFo" +
+      "rmulariob\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,

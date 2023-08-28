@@ -18,22 +18,17 @@ import static pucmm.edu.Main.*;
  */
 public class FormularioServicesGrpc extends FormularioRnGrpc.FormularioRnImplBase {
 
-    // /**
-    //  *
-    //  * @param request
-    //  * @param responseObserver
-    //  */
-    // @Override
-    // public void getFormularios(FormularioRnOuterClass.FormularioRequest request, StreamObserver<FormularioRnOuterClass.FormularioResponse> responseObserver) {
-    //     List<Formulario> formularios = formularioServices.getFormsByUser(usuarioServices.getUsuarioByUsername(request.getUsuario()).getId());
-    //     List<FormularioRnOuterClass.FormularioResponse> formularioResponseList = new ArrayList<>();
-    //     for(Formulario e : formularios){
-    //       formularioResponseList.add(convertir(e));
-    //     }
-    //     FormularioRnOuterClass.ListaFormulario build = FormularioRnOuterClass.ListaFormulario.newBuilder().addAllFormulario(formularioResponseList).build();
-    //     responseObserver.onNext(build);
-    //     responseObserver.onCompleted();
-    // }
+    @Override
+    public void listaFormularioxUser(FormularioRnOuterClass.FormularioRequest request, StreamObserver<FormularioRnOuterClass.ListaFormulario> responseObserver) {
+        List<Formulario> formularios = formularioServices.getFormsByUser(usuarioServices.getUsuarioByUsername(request.getUsuario()).getId());
+        List<FormularioRnOuterClass.FormularioResponse> formularioResponseList = new ArrayList<>();
+        for(Formulario e : formularios){
+            formularioResponseList.add(convertir(e));
+        }
+        FormularioRnOuterClass.ListaFormulario build = FormularioRnOuterClass.ListaFormulario.newBuilder().addAllFormulario(formularioResponseList).build();
+        responseObserver.onNext(build);
+        responseObserver.onCompleted();
+    }
 
     @Override
     public void crearFormulario(FormularioRnOuterClass.FormularioResponse request, StreamObserver<FormularioRnOuterClass.FormularioResponse> responseObserver) {
